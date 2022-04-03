@@ -1,4 +1,4 @@
-# Simple PHP CS Fixer README
+# Docker PHP CS Fixer README
 
 A simple extension for using php-cs-fixer in VS Code.
 
@@ -11,7 +11,7 @@ Now includes support for docker container-based php-cs-fixer!
 ---
 
 ## The Command:
-`simple-php-cs-fixer.fix`
+`docker-php-cs-fixer.fix`
 
 ---
 
@@ -19,27 +19,27 @@ Now includes support for docker container-based php-cs-fixer!
 
 - **executablePath** - The path to your php-cs-fixer (make sure you've installed with composer)
 
-  `"simple-php-cs-fixer.executablePath": "php-cs-fixer"`
+  `"docker-php-cs-fixer.executablePath": "php-cs-fixer"`
 
 - **useConfig** - Look for a custom project specific config file?
 
-  `"simple-php-cs-fixer.useConfig": true`
+  `"docker-php-cs-fixer.useConfig": true`
 
 - **config** - The path to that config file. (relative to the project root)
 
-  `"simple-php-cs-fixer.config": ".php_cs.dist"`
+  `"docker-php-cs-fixer.config": ".php_cs.dist"`
 
 - **save** - Run the fixer on save?
 
-  `"simple-php-cs-fixer.save": false`
+  `"docker-php-cs-fixer.save": false`
 
 - **usingCache** - Whether php-cs-fixer should be using a cache
 
-  `"simple-php-cs-fixer.usingCache": false`
+  `"docker-php-cs-fixer.usingCache": false`
 
 - **rules** - A comma separated list of rules to be used by php-cs-fixer
 
-  `"simple-php-cs-fixer.rules": "@PSR1,@PSR2,trailing_comma_in_multiline_array"`
+  `"docker-php-cs-fixer.rules": "@PSR1,@PSR2,trailing_comma_in_multiline_array"`
 
 ---
 
@@ -50,15 +50,15 @@ If running PHP/php-cs-fixer in a docker container, you can use these configurati
 
 - **hostPath** - The absolute path to your project on your host machine. Eg. "/Users/you/code/project". Filling this out will help replace it with your dockerPath.
 
-  `"simple-php-cs-fixer.hostPath": "/path-to-your-project-in-host-machine"`
+  `"docker-php-cs-fixer.hostPath": "/path-to-your-project-in-host-machine"`
 
 - **dockerPath** - The absolute path to your project on your docker container. Eg. "/var/www/project". This will help with replacing your hostPath with this dockerPath so that your paths are relative to your docker's php-cs-fixer.
 
-  `"simple-php-cs-fixer.dockerPath": "/path-to-your-project-in-docker-container"`
+  `"docker-php-cs-fixer.dockerPath": "/path-to-your-project-in-docker-container"`
 
 - **executablePath** - Use the executablePath to point to docker exec wrapped in script. Eg. "/Users/you/code/project/docker-php-cs-fixer"
 
-  `"simple-php-cs-fixer.executablePath": "/path-to-script-on-host-machine"`
+  `"docker-php-cs-fixer.executablePath": "/path-to-script-on-host-machine"`
 
   For example, you could create a script in your project called `docker-php-cs-fixer` with following contents:
 
