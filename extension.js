@@ -16,19 +16,26 @@ PhpCsFixer.prototype.fix = function (document) {
         return;
     }
 
+    process.env['PHPCS_HOST_ARGS'] = this.getArgs(document, false).join(" ");
+    process.env['PHPCS_DOCKER_ARGS'] = this.getArgs(document).join(" ");
+
     const exec = cp.spawn(this.executablePath, this.getArgs(document));
     this.handleProcessOutput(exec);
 };
 
-PhpCsFixer.prototype.getArgs = function (document) {
+PhpCsFixer.prototype.getArgs = function (document, is_docker=true) {
     let args = ["fix"];
     let configFile = "";
     let documentFile = document.fileName;
-
-    if (this.dockerPath) {
-        documentFile = this.dockerPath ? documentFile.replace(this.hostPath, this.dockerPath) : documentFile;
-        // console.log("file: " + document.fileName + " => " + documentFile);
+    let is_replace = false;
+    if(is_docker && this.dockerPath) {
+        is_replace = true;
     }
+
+    if(is_replace) {
+        documentFile = documentFile.replace(this.hostPath, this.dockerPath);
+    }
+    // console.log("file: " + document.fileName + " => " + documentFile);
 
     args.push(documentFile);
 
@@ -46,9 +53,9 @@ PhpCsFixer.prototype.getArgs = function (document) {
     }
 
     if (configFile && configFile.length) {
-        configFile = this.dockerPath
-            ? configFile.replace("--config=" + this.hostPath, "--config=" + this.dockerPath)
-            : configFile;
+        if(is_replace) {
+            configFile = configFile.replace("--config=" + this.hostPath, "--config=" + this.dockerPath);
+        }
 
         args.push(configFile);
     }

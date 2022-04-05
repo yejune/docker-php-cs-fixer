@@ -63,13 +63,17 @@ If running PHP/php-cs-fixer in a docker container, you can use these configurati
   For example, you could create a script in your project called `docker-php-cs-fixer` with following contents:
 
   ```
-  #!/bin/bash
+  #!/bin/sh
 
-  docker exec -t "yourcontainer" /var/www/your-project/vendor/bin/php-cs-fixer $@
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+      /usr/local/bin/php-cs-fixer.phar $PHPCS_HOST_ARGS
+  else
+      docker exec -t "container name" /var/www/your-project/vendor/bin/php-cs-fixer $0
+  fi
   ```
 
   Note: `chmod +x yourscript` to make executable.
-  
+
 ---
 
 \- Enjoy!
