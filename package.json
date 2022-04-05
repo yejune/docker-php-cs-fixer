@@ -7,7 +7,7 @@
 		"color": "#f0f1f6",
 		"theme": "light"
 	},
-	"version": "1.1.11",
+	"version": "1.2.0",
 	"publisher": "yejune",
 	"engines": {
 		"vscode": "^1.17.0"
@@ -40,10 +40,10 @@
 					"default": "php-cs-fixer",
 					"description": "The path to your php-cs-fixer, which could be a script that exposes this via docker exec."
 				},
-                "docker-php-cs-fixer.executablePathWindows": {
-                    "type": "string",
+				"docker-php-cs-fixer.executablePathWindows": {
+					"type": "string",
 					"description": "The path to your php-cs-fixer on Windows environments, which could be a script that exposes this via docker exec."
-                },
+				},
 				"docker-php-cs-fixer.useConfig": {
 					"type": "boolean",
 					"default": true,
@@ -80,10 +80,10 @@
 					"description": "A comma separated list of rules php-cs-fixer will apply using the --rules option"
 				},
 				"php-cs-fixer.documentFormattingProvider": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "register php document formatting provider, right mouse-click context menu, show as 'Format Document', after changing this option you should restart your editor."
-                }
+					"type": "boolean",
+					"default": true,
+					"description": "register php document formatting provider, right mouse-click context menu, show as 'Format Document', after changing this option you should restart your editor."
+				}
 			}
 		}
 	},

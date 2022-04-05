@@ -15,6 +15,7 @@ PhpCsFixer.prototype.fix = function (document) {
     if (document.languageId !== "php") {
         return;
     }
+
     const exec = cp.spawn(this.executablePath, this.getArgs(document));
     this.handleProcessOutput(exec);
 };
@@ -114,12 +115,24 @@ PhpCsFixer.prototype.loadConfig = function () {
         this.executablePath = config.get("executablePathWindows");
     }
 
+    this.executablePath = this.executablePath.replace(/^~\//, os.homedir() + "/");
+
+    if (!path.isAbsolute(this.executablePath)) {
+        this.executablePath = path.join(vscode.workspace.workspaceFolders[0].uri.path, this.executablePath);
+    }
+
+    if (/\s/.test(this.executablePath)) {
+        vscode.window.showErrorMessage(`Docker PHP CS Fixer: Installing PHP CS Fixer binary into a directory whose path contains spaces is not supported.`);
+    }
+
     this.useConfigFile = config.get("useConfig");
     this.configFile = config.get("config");
     this.runOnSave = config.get("save");
     this.usingCache = config.get("usingCache");
     this.rules = config.get("rules");
     this.hostPath = config.get("hostPath").replace(/^~\//, os.homedir() + "/");
+
+    // console.log('this.hostPath: '+this.hostPath);
     this.dockerPath = config.get("dockerPath");
     this.documentFormattingProvider = config.get("documentFormattingProvider", true);
 
@@ -154,7 +167,7 @@ function activate(context) {
         context.subscriptions.push(
             vscode.languages.registerDocumentFormattingEditProvider("php", {
                 provideDocumentFormattingEdits: (document, options, token) => {
-                    console.log("[STOP] document formatting\n" + document.uri.toString());
+                    vscode.window.showErrorMessage("Docker PHP CS Fixer: Document formatting is not supported. Run on save.");
 
                     return;
                 },
